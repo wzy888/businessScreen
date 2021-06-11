@@ -17,3 +17,4 @@
    2左下角菜价滚动改成100毫秒向上滚2px
    3右上角图片滚动setDelayTime(8000)  scroll_time=4000
    【注】:此版本作为乌镇集贸，独立版本,不用合并master.
+   测试readMe
