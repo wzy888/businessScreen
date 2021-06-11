@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:windowBackground="@android:color/transparent"
+    android:windowIsTranslucent="true">
+
+    <!--软件logo及title-->
+
+
+    <TextView
+        android:id="@+id/tv_splash_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_splash_logo"
+        android:layout_centerHorizontal="true"
+        android:text="@string/tv_login_top_title"
+        android:textColor="@color/colorWhite"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_splash_logo"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/iv_splash_logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/high_definition_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.16"
+        tools:ignore="MissingConstraints" />
+
+
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/pb_splash_bottom"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.005"
+        app:layout_constraintBottom_toTopOf="@id/bottom_line"
+        android:progressDrawable="@drawable/progressbar_splash_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.98" />
+
+
+
+    <!--网络展示图标-->
+    <include layout="@layout/netlogo_info_horizontal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

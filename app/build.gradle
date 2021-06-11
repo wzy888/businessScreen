@@ -1,0 +1,371 @@
+// 表示这是一个应用程序模块   表示这是一个库模块 apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
+apply plugin: 'app-joint'
+apply plugin: 'com.alibaba.arouter'
+
+apply plugin: 'bugly'
+//apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-kapt'
+// 加载channels.properties 给渠道列表打包
+Properties properties = new Properties()
+properties.load(project.rootProject.file('channels.properties').newDataInputStream())
+String channelDefault = properties.getProperty('channel.default')
+String channleList = properties.getProperty('channel.list')
+String[] channelArray = channleList.split(',')
+
+// 获取产品的名字
+static def getProductName() {
+    return "commercialscreen"
+}
+
+// 获取当前系统的时间
+static def releaseTime() {
+    return new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("Asia/Shanghai"))
+}
+
+/******************************** Bugly异常上报的密钥 ********************************/
+bugly {
+    appId = '6dd92a4435'
+    appKey = 'ccbb333e-7613-4132-992c-df84ac22c0bd'
+}
+/******************************** Bugly异常上报的密钥 ********************************/
+
+android {
+
+    // 签名配置属性 有release签名和debug签名
+    signingConfigs {
+        release {
+            keyAlias 'Zhumei'
+            keyPassword 'zhumei2012'
+            storeFile file('./keystore/CommercialScreen.jks')
+            storePassword 'zhumei2012'
+        }
+    }
+
+    //noinspection GradleCompatible
+    compileSdkVersion rootProject.android.compileSdkVersion
+    buildToolsVersion rootProject.android.buildToolsVersion
+
+
+    defaultConfig {
+        // 项目包名
+        applicationId rootProject.android.applicationId
+        // 项目兼容最低版本  5.0以上（摄像头可用）
+        minSdkVersion rootProject.android.minSdkVersion
+//        minSdkVersion 19    // 4.4
+        // 项目兼容最低版本  4.2以上（蓝牙可用）
+//        minSdkVersion 17
+        // 宇松 系统版本4.0.4   14
+//        minSdkVersion 14
+        // A20 系统版本4.2 其他的都大于4.2 效果也不好   17
+        // 项目目标版本  9.0   28
+        targetSdkVersion rootProject.android.targetSdkVersion
+        // A40 V40 系统版本6.0.1   23
+        // 大为 系统版本5.1.1   22
+        // 83A 系统版本6.0.1   23
+        // rk312x 系统版本4.4.2 动画显示很卡 效果不好
+//        minSdkVersion 18
+//        versionCode 71
+//        versionName "4.0.1"
+        // 本来是66版本，现在改成67 是因为 芜湖天香苑、滨江山庄和赣州盘古山需要更新
+        // 仓前软件误更新了  又更新了一遍升级到了68
+        // 上海鼎森秤屏联动对接是69
+        // 76 是上饶市场 77 是对接了海康的市场
+        //本地版本77 对比服务器升级版本78
+        versionCode rootProject.android.versionCode
+        versionName rootProject.android.versionName
+
+        // dex突破65535的限制
+        multiDexEnabled true
+        // AS版本升级到3.1.1 使用butterknife而引发的错误解决
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+        // 表名要使用AndroidJUnitRunner进行单元测试
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        /******************************** GeTui推送的密钥 ********************************/
+        // 清单占位符 在build.gradle文件中定义字符串并将值映射到 AndroidManifest清单文件的指定位置
+        manifestPlaceholders = [
+                // 配置个推应用参数
+                GETUI_APP_ID    : "hmCaVV53lE6xix01s81DX7",
+                GETUI_APP_KEY   : "bu12dZS4uD9AwaS9anse73",
+                GETUI_APP_SECRET: "iaPfzhwxRx8a1VKwjLHMM9",
+                // 多渠道打包时使用的渠道包名字
+                CHANNEL_VALUE   : channelDefault
+        ]
+        /******************************** GeTui推送的密钥 ********************************/
+
+        // 指定要ndk需要兼容的架构(这样其他依赖包里mips,x86,armeabi,arm-v8之类的so会被过滤掉)
+        ndk {
+//            abiFilters "armeabi", "armeabi-v7a", "x86_64" , 'x86', 'arm64-v8a'
+//            abiFilters "armeabi"
+            // 目前已经不支持 armeabi了
+            abiFilters "armeabi-v7a"
+        }
+        resConfigs('zh-rCN')
+
+        //ARouter配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
+            }
+        }
+    }
+
+    lintOptions {
+        // checkReleaseBuilds false
+        checkReleaseBuilds false
+        abortOnError false
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
+    }
+    // ndk-build模式
+    externalNativeBuild {
+        ndkBuild {
+            // 提供ndkbuild脚本的相对路径
+            path file("src/main/jni/Android.mk")
+        }
+    }
+    // 就是区分zhumei还是xiaomi等渠道的 可以更换为其他 commercialscreen_v3.2.13_20190301133512_zhumei_release.apk
+    flavorDimensions("channel")
+    // 多个渠道配置
+    productFlavors {
+
+
+        // 方式二 : 程序遍历方式
+        for (int i = 0; i < channelArray.size(); i++) {
+            def channel = channelArray[i]
+            "${channel}" {
+                manifestPlaceholders = [CHANNEL_VALUE: channel]
+            }
+        }
+    }
+    // 环境构建配置
+    buildTypes {
+        // 生产环境
+        release {
+            // 打开混淆
+            minifyEnabled false
+            // 加载已优化的混淆配置文件 优化掉了Log
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // 签名
+            signingConfig signingConfigs.release
+            // 移除无用的resourse资源
+            shrinkResources false
+            // Zipalign优化
+            zipAlignEnabled true
+            // 修改生成的apk名字，格式为 app名_版本号_打包时间_渠道名_release.apk
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    if (variant.buildType.name.equals('release')) {
+                        output.outputFileName = new File(getProductName() + "_v${defaultConfig.versionName}_${releaseTime()}_" + variant.productFlavors[0].name + '_release.apk')
+                    }
+                }
+            }
+        }
+        // 运行环境
+        debug {
+            // 打开混淆
+            minifyEnabled false
+            // 加载默认混淆配置文件 未优化掉Log
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 签名
+            signingConfig signingConfigs.release
+            // 移除无用的resourse资源
+            shrinkResources false
+            // Zipalign优化
+            zipAlignEnabled true
+            // 修改生成的apk名字，格式为 app名_版本号_打包时间_渠道名_debug.apk
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    if (variant.buildType.name.equals('debug')) {
+                        output.outputFileName = new File(getProductName() + "_v${defaultConfig.versionName}_${releaseTime()}_" + variant.productFlavors[0].name + '_debug.apk')
+                    }
+                }
+            }
+            // 数据库debug调试端口号
+        }
+    }
+    // 如果版本升级后并且数据库有升级的话，需要修改数据库版本
+//    greendao {
+//        // V3.2.13 软件数据库版本为1  只有ScaleTrade表
+//        // V3.2.15 软件数据库版本为2  增加ScaleGoods、ScaleHotKey表
+//        // V3.2.17 软件数据库版本为3  增加ScaleTicket表
+//        // schemaVersion 数据库版本3 旧版商户屏 ；版本4 新版新增MerchantID字段
+//        schemaVersion 4             // 数据库版本号
+//        // 这里注释掉是为了解决 variant.getJavaCompiler() 警告的问题
+////        targetGenDir "src/main/java"     // 生成代码的根路径
+////        daoPackage "com.zhumei.commercialscreen.db"    // 在根路径下生成类的包名
+////        daoPackage "com.zhumei.commercialscreen.db"    // 在根路径下生成类的包名
+//        daoPackage "com.zhumei.baselib.dao"
+//
+//    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //自3.6.0开始需要java8的支持
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+        preDexLibraries = false
+        additionalParameters = ['--multi-dex', '--main-dex-list=' + project.rootDir.absolutePath + '/app/maindexlist.txt', '--minimal-main-dex',
+                                '--set-max-idx-number=1000']
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation rootProject.depsLibs.appcompact
+    implementation rootProject.depsLibs.constraint
+    testImplementation rootProject.depsLibs.junit
+    androidTestImplementation rootProject.depsLibs.androidx_junit
+    androidTestImplementation rootProject.depsLibs.espresso
+
+
+//    // Net
+    implementation rootProject.depsLibs.filedownloader
+//
+    implementation rootProject.depsLibs.eventbus
+//    // View
+    implementation rootProject.depsLibs.autosize
+    implementation rootProject.depsLibs.recyclerview_swipe
+    implementation rootProject.depsLibs.glide
+    annotationProcessor rootProject.depsLibs.glidecompiler
+    implementation rootProject.depsLibs.glide_okhttp3
+
+    implementation rootProject.depsLibs.recyclerview
+//
+//
+//    // Qrcode
+    implementation rootProject.depsLibs.zxing
+//    // Annotation
+    implementation rootProject.depsLibs.butterknife
+    annotationProcessor rootProject.depsLibs.butterknife_compiler
+    implementation rootProject.depsLibs.fastjson
+//
+    implementation rootProject.depsLibs.gson
+//
+//    // Multidex
+    implementation rootProject.depsLibs.multidex
+//    // BlueTooth
+////    implementation 'com.clj.fastble:FastBleLib:2.3.4'
+//    // AndPermission
+    implementation rootProject.depsLibs.yzj_permission
+//
+    implementation rootProject.depsLibs.easypermissions
+//    // GeTuiPush
+    implementation rootProject.depsLibs.getui
+    implementation rootProject.depsLibs.getui_gtc
+
+//    // BaiDuMap
+//    implementation files('libs/baidumapapi_base_v4_3_0.jar')
+//    implementation files('libs/locSDK_6.13.jar')
+//    implementation files('libs/dmb.jar')
+
+//
+//
+//    // Bugly
+    implementation rootProject.depsLibs.crashreport
+    implementation rootProject.depsLibs.nativecrashreport
+    implementation rootProject.depsLibs.customactivityoncrash
+//    // GreenDao
+    implementation rootProject.depsLibs.greendao
+    implementation rootProject.depsLibs.sqlcipher
+    implementation rootProject.depsLibs.greendaoupgradehelper
+//
+//    // utils
+    implementation rootProject.depsLibs.utilcodex
+//
+//    // leak  注释掉这个保证debug模式没有使用
+////    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+////    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+//
+//    // 视频
+//    //视频播放器
+////    implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
+//    //网络请求
+//    //noinspection GradleDependency
+    //网络请求
+    //noinspection GradleDependency
+    implementation rootProject.depsLibs.rxjava
+    //noinspection GradleDependency
+    implementation rootProject.depsLibs.rxandroid
+    implementation rootProject.depsLibs.retrofit
+    implementation rootProject.depsLibs.adapter_rxjava2
+    implementation rootProject.depsLibs.converter_scalars
+    implementation rootProject.depsLibs.converter_gson
+//    //noinspection GradleDependency
+    implementation rootProject.depsLibs.okhttp
+    implementation rootProject.depsLibs.logging_interceptor
+//    //noinspection GradleCompatible
+//    implementation rootProject.depsLibs.support_v4
+//    //3，增加下拉刷新SmartRefreshLayout的依赖
+////    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+////    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
+//
+//
+//    //adapter AndroidX 3.0.5 2.9.47
+    implementation rootProject.depsLibs.bravh
+//    //  腾讯组件
+//    //noinspection GradleDependency
+    implementation rootProject.depsLibs.mmkv
+
+    //arouter库
+    implementation(rootProject.depsLibs.arouterapi) {
+        exclude group: 'com.android.support'
+    }
+    annotationProcessor rootProject.depsLibs.aroutercompiler
+//
+
+//    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
+//    releaseImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
+    implementation(name: 'banner-1.4.10', ext: 'aar')
+
+    implementation project(':lib_base')
+
+//    implementation project(':lib_fastble')
+//    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation project(':lib_update')
+    implementation project(':lib_network')
+    implementation project(':lib_dimens')
+
+    implementation project(':bll_merchant')
+    implementation project(':bll_merchant2')
+
+}
+
+
+
+//
+//allprojects {
+//    repositories {
+//        flatDir {
+//            dirs project(':banner-1.4.10').file('libs')
+//        }
+//    }
+//}
+
+
+
+

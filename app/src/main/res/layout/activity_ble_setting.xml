@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <com.zhumei.baselib.widget.percent_support_extends.PercentLinearLayout
+        android:id="@+id/ll_ble_setting_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="10%sh"
+        android:orientation="horizontal"
+        android:background="@color/colorGreen">
+
+        <TextView
+            android:id="@+id/tv_ble_setting_title"
+            android:layout_gravity="center_vertical"
+            app:layout_marginLeftPercent="2%sh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_textSizePercent="5%sh"
+            android:textColor="@color/colorWhite"
+            android:text="@string/tv_ble_setting_title"/>
+
+    </com.zhumei.baselib.widget.percent_support_extends.PercentLinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ble_setting"
+        android:layout_below="@+id/ll_ble_setting_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:overScrollMode="never"/>
+
+    <ImageView
+        android:id="@+id/iv_ble_setting_loading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="7%sh"
+        app:layout_widthPercent="7%sh"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_loading"
+        android:visibility="invisible"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+
+</com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout>

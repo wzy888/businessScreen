@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhumei.baselib.widget.percent_support_extends.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@color/colorGreen">
+
+    <TextView
+        android:id="@+id/tv_price_change_serial_number_title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        app:layout_textSizePercent="5%sh"
+        android:textColor="@color/colorWhite"
+        android:text="@string/tv_price_change_serial_number_title"/>
+
+    <TextView
+        android:id="@+id/tv_price_change_goods_name_title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2.8"
+        android:gravity="center"
+        app:layout_textSizePercent="5%sh"
+        android:textColor="@color/colorWhite"
+        android:text="@string/tv_price_change_goods_name_title"/>
+
+    <TextView
+        android:id="@+id/tv_price_change_price"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:gravity="center"
+        app:layout_textSizePercent="5%sh"
+        android:textColor="@color/colorWhite"
+        android:text="@string/tv_price_change_price"/>
+
+    <TextView
+        android:id="@+id/tv_price_change_unit_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:gravity="center"
+        app:layout_textSizePercent="5%sh"
+        android:textColor="@color/colorWhite"
+        android:text="@string/tv_price_change_unit_name"/>
+
+    <TextView
+        android:id="@+id/tv_price_change_for_sale"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2"
+        android:gravity="center"
+        app:layout_textSizePercent="5%sh"
+        android:textColor="@color/colorWhite"
+        android:text="@string/tv_price_change_for_sale"/>
+
+    <TextView
+        android:id="@+id/tv_price_change_stall_number"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        app:layout_textSizePercent="5%sh"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+
+    <com.zhumei.baselib.widget.textview.MarqueeTextView
+        android:id="@+id/tv_price_change_commercial_number"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        app:layout_textSizePercent="5%sh"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+
+</com.zhumei.baselib.widget.percent_support_extends.PercentLinearLayout>

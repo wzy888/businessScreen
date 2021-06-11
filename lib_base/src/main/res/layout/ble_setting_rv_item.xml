@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/ble_setting_item_selector"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true">
+
+    <com.zhumei.baselib.widget.percent_support_extends.PercentLinearLayout
+        android:id="@+id/ll_ble_setting_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_paddingLeftPercent="2%sh"
+        app:layout_paddingRightPercent="2%sh"
+        app:layout_paddingBottomPercent="1%sh"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_ble_setting_item_name"
+            android:text="@string/tv_ble_name"
+            app:layout_textSizePercent="4%sh"
+            android:textColor="@color/colorWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.zhumei.baselib.widget.percent_support_extends.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_ble_setting_item_mac"
+                android:text="@string/tv_ble_mac"
+                app:layout_textSizePercent="2.5%sh"
+                android:textColor="@color/colorWhite"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_ble_setting_item_rssi"
+                android:text="@string/tv_ble_rssi"
+                app:layout_textSizePercent="2.5%sh"
+                android:textColor="@color/colorWhite"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_ble_time_setting_item_stamp_nanos"
+                android:text="@string/tv_ble_time_stamp_nanos"
+                app:layout_textSizePercent="2.5%sh"
+                android:textColor="@color/colorWhite"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+        </com.zhumei.baselib.widget.percent_support_extends.PercentLinearLayout>
+
+        <TextView
+            android:id="@+id/tv_ble_setting_item_scan_record"
+            android:text="@string/tv_ble_scan_record"
+            app:layout_textSizePercent="2.5%sh"
+            android:textColor="@color/colorWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.zhumei.baselib.widget.percent_support_extends.PercentLinearLayout>
+</com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout>

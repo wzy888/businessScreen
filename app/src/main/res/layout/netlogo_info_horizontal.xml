@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--互联网无法连通展示图标-->
+    <ImageView
+        android:id="@+id/iv_info_internet"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/iv_cha_internet"
+        android:visibility="gone"
+        app:layout_heightPercent="7%sh"
+        app:layout_widthPercent="7%sh" />
+
+    <!--服务器网络无法连通展示图标-->
+    <ImageView
+        android:id="@+id/iv_info_servernet"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/iv_cha_servernet"
+        android:visibility="gone"
+        app:layout_heightPercent="2%sh"
+        app:layout_marginRightPercent="4%sw"
+        app:layout_widthPercent="2%sh" />
+
+</merge>

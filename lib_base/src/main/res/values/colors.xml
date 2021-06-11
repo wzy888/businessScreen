@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <color name="colorPrimary">#6200EE</color>-->
+<!--    <color name="colorPrimaryDark">#3700B3</color>-->
+<!--    <color name="colorAccent">#03DAC5</color>-->
+
+    <color name="colorGreen">#1A8B3D</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="colorLightGreen">#2AAC86</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBrown">#F6CC5D</color>
+    <color name="colorPink">#E93275</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorYellow">#FF9600</color>
+    <color name="colorBlue">#67C7F1</color>
+    <color name="colorPriceChangeBlue">#2B77EF</color>
+    <color name="colorPriceChangeDeepBlue">#0033CD</color>
+    <color name="colorPriceTextBlue">#55B8DF</color>
+    <color name="colorBackground">#2BA6E1</color>
+    <color name="colorPriceBlue">#2CA7E3</color>
+    <color name="colorPriceGreen">#1A8B3D</color>
+    <color name="colorCommercialBaseInfoDefaultBgColor">#1A8B3D</color>
+    <color name="colorCommercialInfoPriceDisplayGreenColor">#2B7A43</color>
+    <color name="colorMarketInfoBroadcastYellow">#FFF471</color>
+    <color name="colorMarketInfoBrown">#843020</color>
+    <color name="colorMarketInfoDarkRed">#BB2B50</color>
+    <color name="colorMarketInfoNewsYellow">#FFF570</color>
+
+    <color name="colorCommercialInfoMainScreenLightGreen">#1C8B3D</color>
+    <color name="colorCommercialInfoMainScreenDeepGreen">#145C3C</color>
+    <color name="colorCommercialInfoMainScreenWhite">#BCD1B0</color>
+
+    <color name="colorCommercialInfoMainScreenLightGray">#A8A8A8</color>
+    <color name="colorCommercialInfoMainScreenBlack">#6E677A</color>
+    <color name="colorCommercialInfoMainScreenOrange">#EB6425</color>
+    <color name="colorCommercialInfoMainScreenGray4">#14231815</color>
+
+    <!--对话弹框的颜色-->
+    <color name="colorTrans">#00000000</color>
+    <color name="iosGray">#C7C7C7</color>
+    <color name="iosLine">#C7C7CA</color>
+    <color name="blue">#037BFF</color>
+    <color name="success_stroke_color">#A5DC86</color>
+
+    <!--电子秤上方显示颜色-->
+    <color name="colorElectronicScaleBlack">#2b2929</color>
+    <color name="colorElectronicScaleYellow">#cc9966</color>
+    <color name="colorElectronicScaleRed">#FF0000</color>
+    <color name="colorElectronicScaleBrown">#bfa03f</color>
+    <color name="colorElectronicScaleListBrown">#5B5954</color>
+    <color name="wxBackground">#118EEA</color>
+    <color name="zfbBackground">#5B9A6D</color>
+    <color name="col_1baff7">#1BAFF7</color>
+    <color name="col_2f92">#2F9242</color>
+    <color name="col_1bcd">#1BCD0C</color>
+    <color name="col_4646">#464646</color>
+    <color name="col_9f9a">#9F9A9A</color>
+</resources>

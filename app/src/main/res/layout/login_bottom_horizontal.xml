@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout
+            android:id="@+id/ll_login_bottom"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_marginTopPercent="5%sh"
+            app:layout_marginBottomPercent="5%sh"
+            app:layout_heightPercent="5.5%sh"
+            app:layout_widthPercent="30%sw">
+
+            <EditText
+                android:id="@+id/et_login_bottom_market_number"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:background="@drawable/et_login_selector_tv"
+                app:layout_paddingLeftPercent="1%sw"
+                android:singleLine="true"
+                android:hint="@string/et_login_bottom_market_number"
+                app:layout_textSizePercent="3%sh"/>
+
+            <ImageButton
+                android:id="@+id/ib_login_bottom_pulldown"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_widthPercent="5.5%sh"
+                app:layout_heightPercent="5.5%sh"
+                android:focusable="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/image_button_login_selector"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"/>
+
+        </com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout>
+
+        <EditText
+            android:id="@+id/et_login_bottom_stall_number"
+            android:layout_below="@+id/ll_login_bottom"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:background="@drawable/et_login_selector_tv"
+            android:singleLine="true"
+            app:layout_paddingLeftPercent="1%sw"
+            app:layout_heightPercent="5.5%sh"
+            app:layout_widthPercent="30%sw"
+            android:hint="@string/et_login_bottom_stall_number"
+            app:layout_textSizePercent="3%sh"/>
+
+        <com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout
+            android:layout_below="@+id/et_login_bottom_stall_number"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            app:layout_heightPercent="4%sw"
+            app:layout_widthPercent="30%sw"
+            app:layout_marginTopPercent="5%sh">
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                app:layout_heightPercent="3%sw"
+                app:layout_widthPercent="13%sw"
+                app:layout_textSizePercent="3%sh"
+                android:background="@drawable/btn_login_selector"
+                android:textColor="@color/colorWhite"
+                android:text="@string/bt_login_login"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"/>
+
+            <Button
+                android:id="@+id/btn_login_out"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                app:layout_heightPercent="3%sw"
+                app:layout_widthPercent="13%sw"
+                app:layout_textSizePercent="3%sh"
+                android:background="@drawable/btn_login_selector"
+                android:textColor="@color/colorWhite"
+                android:text="@string/bt_login_logout"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"/>
+
+        </com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout>
+    </com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout>
+
+    <com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout
+        app:layout_marginLeftPercent="1.5%sh"
+        app:layout_marginBottomPercent="1.5%sh"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true">
+
+        <TextView
+            android:id="@+id/tv_login_device_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            app:layout_textSizePercent="2.3%sh"
+            android:text="@string/tv_login_device_id"/>
+
+        <TextView
+            android:id="@+id/tv_login_wired_mac"
+            android:layout_below="@+id/tv_login_device_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            app:layout_textSizePercent="2.3%sh"
+            android:text="@string/tv_login_wired_mac"/>
+
+        <TextView
+            android:id="@+id/tv_login_wifi_mac"
+            android:layout_below="@+id/tv_login_wired_mac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            app:layout_textSizePercent="2.3%sh"
+            android:text="@string/tv_login_wifi_mac"/>
+
+<!--        <TextView-->
+<!--            android:visibility="gone"-->
+<!--            android:id="@+id/tv_login_hardware_id"-->
+<!--            android:layout_below="@+id/tv_login_wifi_mac"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/colorBlack"-->
+<!--            app:layout_textSizePercent="2.3%sh"-->
+<!--            android:text="@string/tv_login_hardware_id"/>-->
+
+    </com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout>
+
+    <com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:id="@+id/iv_login_qrcode"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="18%sh"
+            app:layout_widthPercent="18%sh"/>
+
+    </com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout>
+
+    <!--进度条-->
+    <com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="0dp"
+        app:layout_heightPercent="0.5%sh">
+
+        <ProgressBar
+            android:id="@+id/progressbar_login_center"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progressbar_splash_bg"/>
+
+    </com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout>
+</com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout>

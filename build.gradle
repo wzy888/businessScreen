@@ -1,0 +1,75 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: this.rootProject.file('config.gradle')
+
+buildscript {
+    ext.kotlin_version = '1.4.10'
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        // 阿里云云效仓库：https://maven.aliyun.com/mvn/guide
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        // 华为开源镜像：https://mirrors.huaweicloud.com
+//        maven { url 'https://repo.huaweicloud.com/repository/maven' }
+
+    }
+    dependencies {
+
+        //noinspection GradleDependency
+        classpath 'com.android.tools.build:gradle:3.3.3'
+//        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        // Bugly符号表
+        classpath 'com.tencent.bugly:symtabfileuploader:2.2.1'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0'
+        // Butterknife
+        //noinspection GradleDependency
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.1.0'
+//        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        classpath 'io.github.prototypez:app-joint:1.6.1'
+
+        //ARouter插件依赖
+        classpath "com.alibaba:arouter-register:1.0.2"
+
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://dl.bintray.com/thelasterstar/maven/" }
+        //加入下面这句
+        flatDir {
+            dirs 'libs'
+        }
+        // 配置个推Maven URL地址
+        maven { url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/" }
+
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+//        maven { url 'https://repo.huaweicloud.com/repository/maven' }
+
+
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+
+
+// gradle脚本执行所需依赖，分别是对应的maven库和插件
+
+
+
+

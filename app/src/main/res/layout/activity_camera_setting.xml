@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhumei.baselib.widget.percent_support_extends.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <com.zhumei.commercialscreen.ui.camera_setting.controler.AutoFitTextureView
+        android:id="@+id/aftv_camera_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+    <com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@android:color/holo_blue_light">
+
+        <ImageView
+            android:id="@+id/iv_camera_setting"
+            android:layout_width="256dp"
+            android:layout_height="256dp"
+            android:layout_margin="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+        <SeekBar
+            android:id="@+id/sb_camera_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="20dp"/>
+
+        <Button
+            android:id="@+id/btn_camera_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="确定选择区域"/>
+
+    </com.zhumei.baselib.widget.percent_support_extends.PercentRelativeLayout>
+</com.zhumei.baselib.widget.percent_support_extends.PercentLinearLayout>

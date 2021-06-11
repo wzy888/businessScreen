@@ -1,0 +1,161 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.alibaba.arouter'
+
+android {
+    compileSdkVersion rootProject.android.compileSdkVersion
+    buildToolsVersion rootProject.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.android.minSdkVersion
+        targetSdkVersion rootProject.android.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        //配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
+            }
+        }
+    }
+
+    //自3.6.0开始需要java8的支持
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+//    repositories {
+//        flatDir {
+//            dirs 'libs'
+//        }
+//    }
+}
+
+dependencies {
+//    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation rootProject.depsLibs.appcompact
+    implementation rootProject.depsLibs.constraint
+    testImplementation rootProject.depsLibs.junit
+    androidTestImplementation rootProject.depsLibs.androidx_junit
+    androidTestImplementation rootProject.depsLibs.espresso
+
+
+//    // Net
+    implementation rootProject.depsLibs.filedownloader
+//
+    implementation rootProject.depsLibs.eventbus
+//    // View
+    implementation rootProject.depsLibs.autosize
+    implementation rootProject.depsLibs.recyclerview_swipe
+    implementation rootProject.depsLibs.glide
+    annotationProcessor rootProject.depsLibs.glidecompiler
+    implementation rootProject.depsLibs.glide_okhttp3
+
+    implementation rootProject.depsLibs.recyclerview
+//
+//
+//    // Qrcode
+    implementation rootProject.depsLibs.zxing
+//    // Annotation
+    implementation rootProject.depsLibs.butterknife
+    annotationProcessor rootProject.depsLibs.butterknife_compiler
+    implementation rootProject.depsLibs.fastjson
+//
+    implementation rootProject.depsLibs.gson
+//
+//    // Multidex
+    implementation rootProject.depsLibs.multidex
+//    // BlueTooth
+////    implementation 'com.clj.fastble:FastBleLib:2.3.4'
+//    // AndPermission
+    implementation rootProject.depsLibs.yzj_permission
+//
+    implementation rootProject.depsLibs.easypermissions
+//    // GeTuiPush
+    implementation rootProject.depsLibs.getui
+    implementation rootProject.depsLibs.getui_gtc
+
+//    // BaiDuMap
+//    implementation files('libs/baidumapapi_base_v4_3_0.jar')
+//    implementation files('libs/locSDK_6.13.jar')
+//    implementation files('libs/dmb2.jar')
+//
+//
+//    // Bugly
+    implementation rootProject.depsLibs.crashreport
+    implementation rootProject.depsLibs.nativecrashreport
+    implementation rootProject.depsLibs.customactivityoncrash
+//    // GreenDao
+    implementation rootProject.depsLibs.greendao
+    implementation rootProject.depsLibs.sqlcipher
+    implementation rootProject.depsLibs.greendaoupgradehelper
+//
+//    // utils
+    implementation rootProject.depsLibs.utilcodex
+//
+//    // leak  注释掉这个保证debug模式没有使用
+////    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+////    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+//
+//    // 视频
+//    //视频播放器
+////    implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
+//    //网络请求
+//    //noinspection GradleDependency
+    //网络请求
+    //noinspection GradleDependency
+    implementation rootProject.depsLibs.rxjava
+    //noinspection GradleDependency
+    implementation rootProject.depsLibs.rxandroid
+    implementation  rootProject.depsLibs.retrofit
+    implementation rootProject.depsLibs.adapter_rxjava2
+    implementation  rootProject.depsLibs.converter_scalars
+    implementation rootProject.depsLibs.converter_gson
+//    //noinspection GradleDependency
+    implementation rootProject.depsLibs.okhttp
+    implementation rootProject.depsLibs.logging_interceptor
+//    //noinspection GradleCompatible
+//    implementation rootProject.depsLibs.support_v4
+//    //3，增加下拉刷新SmartRefreshLayout的依赖
+////    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+////    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
+//
+//
+//    //adapter AndroidX 3.0.5 2.9.47
+    implementation rootProject.depsLibs.bravh
+//    //  腾讯组件
+//    //noinspection GradleDependency
+    implementation rootProject.depsLibs.mmkv
+
+    //arouter库
+    implementation(rootProject.depsLibs.arouterapi) {
+        exclude group: 'com.android.support'
+    }
+    annotationProcessor rootProject.depsLibs.aroutercompiler
+//
+//    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
+//    releaseImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
+    implementation(name: 'banner-1.4.10', ext: 'aar')
+    compileOnly project(':lib_base')
+
+//    compileOnly project(':lib_fastble')
+//    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    compileOnly project(':lib_update')
+    compileOnly project(':lib_network')
+    compileOnly project(':lib_dimens')
+
+}
+
+
+

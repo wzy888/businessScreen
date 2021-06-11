@@ -1,0 +1,140 @@
+<resources>
+    <string name="app_name">筑美智慧农贸商户屏</string>
+
+    <string name="tv_login_top_title">筑美智慧农贸商户屏</string>
+    <string name="bt_login_login">确&#160;&#160;&#160;&#160;定</string>
+    <string name="bt_login_logout">退&#160;&#160;&#160;&#160;出</string>
+    <string name="et_login_bottom_market_number">请输入市场编号</string>
+    <string name="et_login_bottom_stall_number">请输入摊位编号</string>
+    <string name="tv_login_wired_mac">有线Mac地址：</string>
+    <string name="tv_login_wifi_mac">无线Mac地址：</string>
+    <!--    <string name="tv_login_hardware_id">硬件id：</string>-->
+    <string name="tv_login_device_id">设备id：</string>
+
+    <string name="tv_price_change_serial_number_title">序号</string>
+    <string name="tv_price_change_goods_name_title">名称</string>
+    <string name="tv_price_change_price">菜价</string>
+    <string name="tv_price_change_unit_name">单位</string>
+    <string name="tv_price_change_for_sale">特价</string>
+    <string name="bt_price_change_delete">删除</string>
+    <string name="tv_price_change_def_commercial_num">暂无</string>
+    <string name="tv_price_change_def_stall_num">暂无</string>
+    <string name="tv_price_change_price_delete_fail">网络不给力，菜价删除失败，请稍后重试！</string>
+    <string name="tv_price_change_price_change_fail">网络不给力，菜价修改提交失败！</string>
+    <string name="tv_price_change_price_is_empty">部分菜价为空，提交失败！</string>
+    <string name="tv_price_change_price_delete_dialog_title">删除当前菜价</string>
+    <string name="tv_price_change_price_delete_dialog_msg">点击确定即可删除本条菜价，是否删除？</string>
+    <string name="tv_price_change_price_delete_dialog_positive_button">确认删除</string>
+    <string name="tv_price_change_price_dialog_negative_button">取消</string>
+    <string name="tv_price_change_price_change_dialog_title">提交当前菜价</string>
+    <string name="tv_price_change_price_change_dialog_msg">点击确定即可提交当前菜价，是否提交？</string>
+    <string name="tv_price_change_price_change_dialog_positive_button">确认提交</string>
+    <string name="et_price_change_adapter">菜价不能为空,否则会提交失败！</string>
+    <string name="cb_price_change_adapter_for_sale">目前市场菜价为指导价，不能设置特价！</string>
+
+    <string name="tv_commercial_info_top_right_commitment_title">承诺书</string>
+    <string name="tv_commercial_info_top_right_commitment">我，农贸市场经营户郑重承诺：</string>
+    <string name="tv_commercial_info_top_right_commitment_content">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;本商位绝不出售假冒伪劣、过期变质的商品；食品安全可追溯，票据齐全、价格公道、计量准确；诚信经营，文明经商</string>
+    <string name="tv_commercial_info_top_right_commitment_content_margin">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="tv_commercial_info_top_right_commitment_person_title">承诺人：</string>
+    <string name="tv_commercial_info_bottom_left_bottom_qrcode_title">点评/点赞/投诉</string>
+    <string name="tv_commercial_info_bottom_left_top_thumb_num">点赞：10</string>
+    <string name="tv_commercial_info_top_left_volume">交易量：--单</string>
+    <string name="tv_commercial_info_top_left_volume_data_title">交易量：</string>
+    <string name="tv_commercial_info_top_left_volume_title">单</string>
+
+    <string name="tv_commercial_info_electronic_scale_top_weight_desc">重量：0.000/kg</string>
+    <string name="tv_commercial_info_electronic_scale_top_weight">0.000</string>
+    <string name="tv_commercial_info_electronic_scale_top_unit_price_desc">单价：RMB/kg</string>
+    <string name="tv_commercial_info_electronic_scale_top_subtotal_desc">小计：RMB</string>
+    <string name="tv_commercial_info_electronic_scale_top_total_desc">合计：RMB</string>
+    <string name="tv_commercial_info_electronic_scale_top_total_form">0单：</string>
+    <string name="tv_commercial_info_electronic_scale_bill">单</string>
+    <string name="tv_commercial_info_electronic_scale_rmb">￥</string>
+    <string name="tv_commercial_info_electronic_scale_top_price">0.00</string>
+    <string name="tv_commercial_info_electronic_scale_middle_right_money">支付</string>
+    <string name="tv_commercial_info_electronic_scale_middle_right_pay_type_wx">微信</string>
+    <string name="tv_commercial_info_electronic_scale_middle_right_pay_type_zfb">支付宝</string>
+    <string name="tv_commercial_info_electronic_scale_middle_right_pay_type_qt">其他支付方式</string>
+    <string name="tv_commercial_info_electronic_scale_middle_right_pay_type_jhjtm">聚合静态码</string>
+    <string name="tv_commercial_info_electronic_scale_middle_right_pay_type_jhdtm">聚合动态码</string>
+    <string name="default_merchant_name">暂无</string>
+    <string name="default_stall_num">暂无</string>
+    <string name="marquee_speed_mid">0.25</string>
+    <string name="marquee_speed_slow">0.08</string>
+    <string name="default_content">暂无</string>
+    <string name="default_null">""</string>
+
+    <string name="successfully">Request Permission Successful!</string>
+
+    <string name="tv_ble_setting_item_name">Unknown Device</string>
+    <string name="tv_ble_setting_item_mac">Mac:</string>
+    <string name="tv_ble_setting_item_rssi">RSSI:</string>
+    <string name="tv_ble_setting_item_db">db</string>
+    <string name="tv_ble_setting_item_time_stamp_nanos">Time:</string>
+    <string name="simple_data_format">yyyy-MM-dd HH:mm:ss</string>
+    <string name="tv_ble_setting_item_scan_record">ScanRecord：</string>
+    <string name="tv_ble_name">蓝牙名称</string>
+    <string name="tv_ble_mac">蓝牙Mac地址</string>
+    <string name="tv_ble_rssi">蓝牙RSSI</string>
+    <string name="tv_ble_time_stamp_nanos">蓝牙时间戳</string>
+    <string name="tv_ble_scan_record">蓝牙扫描记录</string>
+    <string name="tv_ble_setting_title">可用蓝牙设备</string>
+    <string name="ble_conn_fail">Bluetooth connection failure!</string>
+    <string name="ble_conn_success">Bluetooth connection success!</string>
+    <string name="ble_disconn">Bluetooth connection disconnection!</string>
+
+    <string name="psd_dialog_title_tv">请输入电视观看密码</string>
+    <string name="psd_dialog_title_exit">请输入退出密码</string>
+    <string name="psd_dialog_title_price_change">请输入菜价修改密码</string>
+    <string name="psd_dialog_title_ble_setting">请输入蓝牙设置密码</string>
+    <string name="psd_dialog_title_debug_camera">请输入摄像头调试密码</string>
+    <string name="psd_dialog_title_net">网络状态提示</string>
+    <string name="dialog_positive_button_text">确定输入</string>
+    <string name="dialog_negative_button_text">取消</string>
+    <string name="dialog_msg_net">没有可以使用的网络，请先设置网络！</string>
+    <string name="no_internet_no_tv">没有网络，无法进行电视观看！</string>
+    <string name="no_internet_no_price">没有网络，无法修改菜价！</string>
+    <string name="no_tv">无法观看电视，请联系市场管理员解决！</string>
+    <string name="psd_error">密码错误</string>
+    <string name="tv_technical_support">技术支持：杭州筑美信息科技有限公司&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;服务电话：400-0086522</string>
+
+    <string name="tv_commercial_info_price_display_rmb_symbol">￥</string>
+    <string name="tv_commercial_info_price_display_price">0.00</string>
+    <string name="tv_commercial_info_price_display_unit">元/斤</string>
+    <string name="tv_commercial_info_price_display_traceability_level">追溯等级：Ⅰ</string>
+
+    <string name="tv_commercial_info_main_screen_slash">/</string>
+    <string name="tv_commercial_info_main_screen_top_thumb_title">好评点赞</string>
+    <string name="tv_commercial_info_main_screen_top_thumb">--人</string>
+    <string name="tv_commercial_info_main_screen_top_volume_title">今日交易</string>
+    <string name="tv_commercial_info_main_screen_top_volume">--单</string>
+    <string name="tv_commercial_info_main_screen_top_trace_title">追溯凭证</string>
+    <string name="tv_commercial_info_main_screen_top_trace">已上传</string>
+    <string name="tv_commercial_info_main_screen_top_qrcode_title">点赞/点评/投诉</string>
+    <string name="tv_commercial_info_main_screen_middle_discern_dish_name">暂无菜品：</string>
+    <string name="tv_commercial_info_main_screen_middle_discern_dish_area">产地：杭州</string>
+    <string name="tv_commercial_info_main_screen_middle_discern_dish_detect">检测：已检测/合格</string>
+    <string name="tv_commercial_info_main_screen_middle_discern_dish_proof">凭证：已上传</string>
+    <string name="tv_commercial_info_main_screen_middle_qrcode_title">请支付：</string>
+    <string name="tv_commercial_info_main_screen_middle_qrcode_price">0.00</string>
+    <string name="tv_commercial_info_main_screen_dish_list_item_dish_name">--/--</string>
+
+    <string name="tv_market_info_recommended_title">今日推荐</string>
+    <string name="tv_market_info_warm_prompt_title">温馨提示</string>
+    <string name="net_exception">网络连接异常!</string>
+    <string name="net_success">网络连接正常!</string>
+
+
+    <!-- 扫描LE -->
+    <string name="scan_connected">已连接</string>
+    <string name="scan_disconnected">已断开</string>
+    <string name="scan_connect_timeout">连接超时</string>
+    <string name="scan_connection_error">连接异常</string>
+    <string name="scan_bt_disabled">蓝牙未打开</string>
+    <string name="unknown_device">unKnowDevice</string>
+    <string name="menu_connect">connect</string>
+    <string name="no_data">暂无数据</string>
+
+
+</resources>

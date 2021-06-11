@@ -1,0 +1,6 @@
+include ':bll_merchant2'
+include ':bll_merchant'
+include ':lib_dimens'
+include ':lib_network'
+include ':app',':lib_fastble', ':lib_update',':lib_base'
+rootProject.name = "businessScreen"

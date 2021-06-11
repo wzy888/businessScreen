@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.android.compileSdkVersion
+    buildToolsVersion rootProject.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.android.minSdkVersion
+        targetSdkVersion rootProject.android.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+//    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation rootProject.depsLibs.appcompact
+    implementation rootProject.depsLibs.constraint
+    testImplementation rootProject.depsLibs.junit
+    androidTestImplementation rootProject.depsLibs.androidx_junit
+    androidTestImplementation rootProject.depsLibs.espresso
+
+    //网络请求
+    //noinspection GradleDependency
+    compileOnly rootProject.depsLibs.rxjava
+    //noinspection GradleDependency
+    compileOnly rootProject.depsLibs.rxandroid
+    compileOnly  rootProject.depsLibs.retrofit
+    compileOnly rootProject.depsLibs.adapter_rxjava2
+    compileOnly  rootProject.depsLibs.converter_scalars
+    compileOnly rootProject.depsLibs.converter_gson
+//    //noinspection GradleDependency
+    compileOnly rootProject.depsLibs.okhttp
+    compileOnly rootProject.depsLibs.logging_interceptor
+}

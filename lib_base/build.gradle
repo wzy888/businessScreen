@@ -1,0 +1,170 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.alibaba.arouter'
+
+android {
+    compileSdkVersion rootProject.android.compileSdkVersion
+    buildToolsVersion rootProject.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.android.minSdkVersion
+        targetSdkVersion rootProject.android.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        //ARouter配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
+            }
+        }
+
+        // dex突破65535的限制
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+    //自3.6.0开始需要java8的支持
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    greendao {
+        // V3.2.13 软件数据库版本为1  只有ScaleTrade表
+        // V3.2.15 软件数据库版本为2  增加ScaleGoods、ScaleHotKey表
+        // V3.2.17 软件数据库版本为3  增加ScaleTicket表
+        // schemaVersion 数据库版本3 旧版商户屏 ；版本4 新版新增MerchantID字段
+        schemaVersion 4         // 数据库版本号
+        // 这里注释掉是为了解决 variant.getJavaCompiler() 警告的问题
+//        targetGenDir "src/main/java/dao"     // 生成代码的根路径
+        targetGenDir   'src/main/java'
+        daoPackage "com.zhumei.baselib.dao"    // 在根路径下生成类的包名 com.zhumei.baselib
+//        daoPackage "com.zhumei.commercialscreen.dao"
+    }
+
+}
+
+dependencies {
+//    implementation fileTree(dir: "libs", include: ["*.jar"])
+    compileOnly rootProject.depsLibs.appcompact
+    compileOnly rootProject.depsLibs.constraint
+    testImplementation rootProject.depsLibs.junit
+    androidTestImplementation rootProject.depsLibs.androidx_junit
+    androidTestImplementation rootProject.depsLibs.espresso
+
+    compileOnly rootProject.depsLibs.filedownloader
+//
+    compileOnly rootProject.depsLibs.eventbus
+    // View
+    compileOnly rootProject.depsLibs.autosize
+    compileOnly rootProject.depsLibs.recyclerview_swipe
+    compileOnly rootProject.depsLibs.glide
+    annotationProcessor rootProject.depsLibs.glidecompiler
+    compileOnly rootProject.depsLibs.glide_okhttp3
+    compileOnly rootProject.depsLibs.recyclerview
+
+
+
+    // Qrcode
+    compileOnly rootProject.depsLibs.zxing
+    // Annotation
+    compileOnly rootProject.depsLibs.butterknife
+    annotationProcessor rootProject.depsLibs.butterknife_compiler
+    compileOnly rootProject.depsLibs.fastjson
+
+    compileOnly  rootProject.depsLibs.gson
+
+
+    // AndPermission
+    compileOnly rootProject.depsLibs.yzj_permission
+
+    compileOnly rootProject.depsLibs.easypermissions
+    // GeTuiPush
+    compileOnly rootProject.depsLibs.getui
+    compileOnly rootProject.depsLibs.getui_gtc
+
+    // BaiDuMap
+//    implementation files('libs/baidumapapi_base_v4_3_0.jar')
+//    implementation files('libs/locSDK_6.13.jar')
+
+
+//    // Bugly
+    compileOnly rootProject.depsLibs.crashreport
+    compileOnly rootProject.depsLibs.nativecrashreport
+    compileOnly rootProject.depsLibs.customactivityoncrash
+//    // GreenDao
+    compileOnly rootProject.depsLibs.greendao
+    compileOnly rootProject.depsLibs.greendaogen
+
+    compileOnly rootProject.depsLibs.sqlcipher
+    compileOnly rootProject.depsLibs.greendaoupgradehelper
+//
+//    // utils
+    compileOnly rootProject.depsLibs.utilcodex
+
+    // leak  注释掉这个保证debug模式没有使用
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+
+    // 视频
+    //视频播放器
+//    implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
+
+    //网络请求
+    //noinspection GradleDependency
+    compileOnly rootProject.depsLibs.rxjava
+    //noinspection GradleDependency
+    compileOnly rootProject.depsLibs.rxandroid
+    compileOnly  rootProject.depsLibs.retrofit
+    compileOnly rootProject.depsLibs.adapter_rxjava2
+    compileOnly  rootProject.depsLibs.converter_scalars
+    compileOnly rootProject.depsLibs.converter_gson
+//    //noinspection GradleDependency
+    compileOnly rootProject.depsLibs.okhttp
+    compileOnly rootProject.depsLibs.logging_interceptor
+    //noinspection GradleCompatible
+//    implementation 'com.android.support:support-v4:26.1.0'
+//    compileOnly rootProject.depsLibs.support_v4
+
+    //3，增加下拉刷新SmartRefreshLayout的依赖
+//    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+//    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
+
+
+    //    //adapter AndroidX 3.0.5 2.9.47
+    implementation rootProject.depsLibs.bravh
+//    //  腾讯组件
+//    //noinspection GradleDependency
+    implementation rootProject.depsLibs.mmkv
+
+    debugImplementation  rootProject.depsLibs.blockcanary
+    releaseImplementation  rootProject.depsLibs.blockcanary_no_op
+    api rootProject.depsLibs.app_joint
+    compileOnly rootProject.depsLibs.multidex
+
+    //arouter库
+    compileOnly(rootProject.depsLibs.arouterapi) {
+        exclude group: 'com.android.support'
+    }
+    annotationProcessor rootProject.depsLibs.aroutercompiler
+
+    api(name:'banner-1.4.10', ext:'aar')
+    compileOnly project(':lib_network')
+    api project(':lib_fastble')
+    compileOnly project(':lib_update')
+
+    api files('libs/dmb.jar')
+}
