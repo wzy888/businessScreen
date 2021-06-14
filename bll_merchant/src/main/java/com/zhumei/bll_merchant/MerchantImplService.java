@@ -51,6 +51,8 @@ public class MerchantImplService implements MerchantService {
         try {
             if (ObjectUtils.isNotEmpty(activity)){
                 activity. enableBleToConnect();
+            }else {
+                LogUtils.d("activity is null ....");
             }
         } catch (Exception e) {
             e.printStackTrace();

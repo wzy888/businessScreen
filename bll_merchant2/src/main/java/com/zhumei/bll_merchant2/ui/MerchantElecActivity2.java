@@ -59,6 +59,7 @@ import com.zhumei.baselib.bean.commercial_info.ScaleGoods;
 import com.zhumei.baselib.bean.commercial_info.ScaleHotkeyCommInfo;
 import com.zhumei.baselib.bean.commercial_info.ScaleTicket;
 import com.zhumei.baselib.bean.scale.ScaleHotkey;
+import com.zhumei.baselib.bll_merchant.impl.MerchantImpl2;
 import com.zhumei.baselib.config.Constant;
 import com.zhumei.baselib.dao.ScaleDaoManager;
 import com.zhumei.baselib.dao.ScaleDaoUtil;
@@ -119,6 +120,7 @@ public class MerchantElecActivity2 extends BaseActivity<ElecMerchantPresenter> i
 
 
     private static final int DELAY_TIME = 8000;
+    public static MerchantElecActivity2 instance ;
 //    private ActivityUtil activityUtil = new ActivityUtil();
 
     private VegetablePricesAdapter goodsPriceAdapter;
@@ -242,6 +244,11 @@ public class MerchantElecActivity2 extends BaseActivity<ElecMerchantPresenter> i
     //是否 首次进来 控制网络刷新
     private int freshCount = 0;
 
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, MerchantElecActivity2.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_merchant_elec2;
@@ -264,6 +271,8 @@ public class MerchantElecActivity2 extends BaseActivity<ElecMerchantPresenter> i
 
 
         try {
+
+            instance = this;
             ivRootBg = findViewById(R.id.iv_root_bg);
             guideLineTop = (Guideline) findViewById(R.id.guide_line_top);
             guideLineLeft = (Guideline) findViewById(R.id.guide_line_left);
@@ -1767,7 +1776,8 @@ public class MerchantElecActivity2 extends BaseActivity<ElecMerchantPresenter> i
                 @Override
                 public void run() {
                     // 打开蓝牙并连接 显示数据 ，20秒钟后再进行蓝牙连接
-                    enableBleToConnect();
+//                    enableBleToConnect();
+                    MerchantImpl2.getInstance().connectBle();
                 }
             };
         }

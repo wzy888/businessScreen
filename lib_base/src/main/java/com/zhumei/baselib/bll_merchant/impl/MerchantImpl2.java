@@ -7,26 +7,26 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.zhumei.baselib.aroute.RouterManager;
 import com.zhumei.baselib.bll_merchant.MerchantService;
 
-public class MerchantImpl {
+public class MerchantImpl2 {
 
 
-    private static MerchantImpl merchantImpl = null;
+    private static MerchantImpl2 merchantImpl = null;
 
-    @Autowired(name = RouterManager.MERCHANTSERVICE)
+    @Autowired(name = RouterManager.MERCHANTSERVICE2)
     protected MerchantService mMerchantService;
 
-    public static MerchantImpl getInstance() {
+    public static MerchantImpl2 getInstance() {
         if (merchantImpl == null) {
-            synchronized (MerchantImpl.class) {
+            synchronized (MerchantImpl2.class) {
                 if (merchantImpl == null) {
-                    merchantImpl = new MerchantImpl();
+                    merchantImpl = new MerchantImpl2();
                 }
             }
         }
         return merchantImpl;
     }
 
-    private MerchantImpl() {
+    private MerchantImpl2() {
         ARouter.getInstance().inject(this);
     }
 

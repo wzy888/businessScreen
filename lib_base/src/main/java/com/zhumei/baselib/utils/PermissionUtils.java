@@ -8,7 +8,9 @@ import androidx.annotation.NonNull;
 
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.runtime.option.RuntimeOption;
 import com.zhumei.baselib.BaseHelper;
+import com.zhumei.baselib.RuntimeRationale;
 
 import java.util.List;
 
@@ -58,11 +60,31 @@ public class PermissionUtils {
 //                            }
 //                        })
 //                        .start();
-
+//                AndPermission.with(mContext)
+//                        .runtime()
+//                        .permission(requestPermissions)
+//                        .rationale(new RuntimeRationale())
+//                        .onGranted(new Action<List<String>>() {
+//                            @Override
+//                            public void onAction(List<String> permissions) {
+////                                toast(R.string.successfully);
+//                            }
+//                        })
+//                        .onDenied(new Action<List<String>>() {
+//                            @Override
+//                            public void onAction(@NonNull List<String> permissions) {
+//                                toast(R.string.failure);
+//                                if (AndPermission.hasAlwaysDeniedPermission(MainActivity.this, permissions)) {
+//                                    showSettingDialog(MainActivity.this, permissions);
+//                                }
+//                            }
+//                        })
+//                        .start();
 
                 AndPermission.with(mContext)
                         .runtime()
                         .permission(requestPermissions)
+                        .rationale(new RuntimeRationale())
                         .onGranted(new Action<List<String>>() {
                             @Override
                             public void onAction(List<String> data) {
@@ -76,6 +98,12 @@ public class PermissionUtils {
                         if (callBack!=null){
                             callBack.onFail(permissions);
                         }
+                        if (AndPermission.hasAlwaysDeniedPermission(mContext, permissions)) {
+                            /***
+                             *  回调方法 写到Activity 显示UI
+                             * */
+//                                    showSettingDialog(MainActivity.this, permissions);
+                                }
                     }
                 }).start();
             }

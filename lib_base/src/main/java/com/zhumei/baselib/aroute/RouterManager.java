@@ -24,5 +24,5 @@ public interface RouterManager {
 
 
     String MERCHANTSERVICE = "/merchant/merchant_service";
-    String MERCHANTSERVICE2 = "/merchant/merchant_service2";
+    String MERCHANTSERVICE2 = "/merchantnew/merchant_service2";
 }

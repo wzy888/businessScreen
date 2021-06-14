@@ -135,6 +135,7 @@
     <string name="unknown_device">unKnowDevice</string>
     <string name="menu_connect">connect</string>
     <string name="no_data">暂无数据</string>
+    <string name="message_permission_rationale">Grant the following permissions to continue the program:\n\n%1$s</string>
 
 
 </resources>
