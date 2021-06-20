@@ -69,5 +69,15 @@
         <attr name="layout_paddingLeftPercent" format="string"/>
         <attr name="layout_paddingRightPercent" format="string"/>
     </declare-styleable>
+    <!--TvRecycelvie滚动-->
+    <attr name="scrollMode" >
+        <enum name="normalScroll" value="0"/>
+        <enum name="followScroll" value="1"/>
+    </attr>
+
+    <!--TvRecycelview样式-->
+    <declare-styleable name="TvRecyclerView">
+        <attr name="scrollMode"/>
+    </declare-styleable>
 
 </resources>

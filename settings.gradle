@@ -4,3 +4,4 @@ include ':lib_dimens'
 include ':lib_network'
 include ':app',':lib_fastble', ':lib_update',':lib_base'
 rootProject.name = "businessScreen"
+include ':myapplication'
