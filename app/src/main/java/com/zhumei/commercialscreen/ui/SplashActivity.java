@@ -25,6 +25,7 @@ import com.zhumei.baselib.base.BaseResponse;
 import com.zhumei.baselib.base.Event;
 import com.zhumei.baselib.base.MmkvUtils;
 import com.zhumei.baselib.bll_merchant.impl.MerchantImpl;
+import com.zhumei.baselib.interceptor.LoginNavigationCallbackImpl;
 import com.zhumei.baselib.module.localdata.LoginLocalData;
 import com.zhumei.baselib.module.response.AutoUpdateRes;
 import com.zhumei.baselib.module.response.BannerRes;
@@ -121,7 +122,10 @@ public class SplashActivity extends BaseActivity<SplashPresenterNew> implements 
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                jumpTemplete();
+//                jumpTemplete();
+                ARouter.getInstance().build(RouterManager.MERCHANT)
+                        .withString("msg", "ARouter 传递过来的需要登录的参数 msg")
+                        .navigation(SplashActivity.this, new LoginNavigationCallbackImpl());
                 com.blankj.utilcode.util.LogUtils.d("进入首页。。");
             }
         }, 3000);
