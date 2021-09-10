@@ -407,7 +407,9 @@ public class AppConstants {
         /**
          * 霸屏服务
          */
-        public static final String KEEP_ALIVE_SERVICE = "com.zhumei.commercialscreen.ui.base.service.KeepAliveService";
+//        public static final String KEEP_ALIVE_SERVICE = "com.zhumei.commercialscreen.service.KeepAliveService";
+
+        public static final String KEEP_ALIVE_SERVICE = "com.zhumei.baselib.service.KeepAliveService";
 
         /**
          * ping百度，判断外网网络连接

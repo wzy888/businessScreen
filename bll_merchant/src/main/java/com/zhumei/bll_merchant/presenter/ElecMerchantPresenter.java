@@ -3,9 +3,12 @@ package com.zhumei.bll_merchant.presenter;
 import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ObjectUtils;
 import com.zhumei.baselib.base.BaseObserverNew;
 import com.zhumei.baselib.base.BasePresenterNew;
 import com.zhumei.baselib.base.BaseResponse;
+import com.zhumei.baselib.base.MmkvUtils;
+import com.zhumei.baselib.config.Constant;
 import com.zhumei.baselib.module.response.AutoUpdateRes;
 import com.zhumei.baselib.module.response.BannerRes;
 import com.zhumei.baselib.module.response.GoodsInfoRes;
@@ -241,5 +244,21 @@ public class ElecMerchantPresenter extends BasePresenterNew<ElecMerchantsView> {
 
             }
         });
+    }
+
+
+    public String getMerchantId() {
+        String merchnatId = "0";
+        try {
+            MerchantInfo merchantInfo = MmkvUtils.getInstance().getObject(Constant.MERCHANT_INFO, MerchantInfo.class);
+            if (ObjectUtils.isNotEmpty(merchantInfo)) {
+                merchnatId = String.valueOf(merchantInfo.getMerchant_id());
+            }
+            com.blankj.utilcode.util.LogUtils.d("merchantId: " + merchnatId);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return merchnatId;
     }
 }

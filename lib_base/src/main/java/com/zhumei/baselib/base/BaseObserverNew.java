@@ -12,6 +12,7 @@ import java.net.ConnectException;
 import java.net.UnknownHostException;
 
 import io.reactivex.observers.DisposableObserver;
+import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
 
@@ -70,10 +71,11 @@ public abstract class BaseObserverNew<T> extends DisposableObserver<T> {
             }
 
 
-
-
-            if (model.getCode() == 1  ) {
+            if (model.getCode() == 1) {
                 onSuccess(o);
+            } else if (model.getCode() == 0) {
+                //返回码 =0 无数据
+                onError("0");
             } else {
                 onError(model.getMsg());
             }
@@ -81,7 +83,7 @@ public abstract class BaseObserverNew<T> extends DisposableObserver<T> {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("error",e.toString());
+            Log.e("error", e.toString());
             onError(e.toString());
         }
 
@@ -137,6 +139,7 @@ public abstract class BaseObserverNew<T> extends DisposableObserver<T> {
                 break;
 
             default:
+                onError("未知错误");
                 break;
         }
     }

@@ -2,6 +2,7 @@ package com.zhumei.commercialscreen.presenter.splash;
 
 import android.util.Log;
 
+import com.zhumei.baselib.module.response.LoginRes;
 import com.zhumei.baselib.utils.ParamsUtils;
 import com.zhumei.baselib.base.BaseObserverNew;
 import com.zhumei.baselib.base.BasePresenterNew;
@@ -127,5 +128,43 @@ public class SplashPresenterNew extends BasePresenterNew<SplashViewNew> {
         });
     }
 
+    /**
+     * 登录 绑定摊位
+     */
+    public void login(String code, String stall_name) {
+        try {
+            HashMap params = new HashMap();
+            try {
+                // 市场编号
+                params.put("code", code);
+                // 摊位编号
+                params.put("stall_name", stall_name);
+                params.put("sign", ParamsUtils.md5(params));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), params.toString());
+            addDisposable(apiServer.login(params), new BaseObserverNew<BaseResponse<LoginRes>>(baseView) {
+                @Override
+                public void onSuccess(BaseResponse<LoginRes> response) {
+                    try {
+                        baseView.loginSuccess(response, stall_name);
 
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String msg) {
+                    Log.e("login==>", msg);
+                    setToast(msg);
+                    baseView.loginError(msg);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

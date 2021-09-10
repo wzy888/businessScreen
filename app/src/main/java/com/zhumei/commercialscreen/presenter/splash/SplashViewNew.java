@@ -6,6 +6,7 @@ import com.zhumei.baselib.base.BaseView;
 import com.zhumei.baselib.module.response.AutoUpdateRes;
 import com.zhumei.baselib.module.response.BannerRes;
 import com.zhumei.baselib.module.response.GoodsPriceRes;
+import com.zhumei.baselib.module.response.LoginRes;
 import com.zhumei.baselib.module.response.MerchantInfo;
 
 public interface SplashViewNew extends BaseView {
@@ -25,4 +26,7 @@ public interface SplashViewNew extends BaseView {
 
     void updateError(String msg);
 
+    void loginSuccess(BaseResponse<LoginRes> response, String stall_name);
+
+    void loginError(String msg);
 }

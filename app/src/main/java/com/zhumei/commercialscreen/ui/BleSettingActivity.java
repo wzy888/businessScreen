@@ -84,7 +84,7 @@ public class BleSettingActivity extends BaseActivity {
                         BleManager.getInstance().cancelScan();
                         CacheUtils.putString(AppConstants.Cache.BLE_MAC_ADDR, bleDevice.getMac());
 
-                        ARouter.getInstance().build(RouterManager.BLESET)
+                        ARouter.getInstance().build(RouterManager.MERCHANT)
 //                            .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
                                 .navigation();
 //                        MerchantImpl.getInstance().startMerchantActivity(BleSettingActivity.this);

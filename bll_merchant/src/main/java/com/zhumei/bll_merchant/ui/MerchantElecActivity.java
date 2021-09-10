@@ -234,7 +234,10 @@ public class MerchantElecActivity extends BaseActivity<ElecMerchantPresenter> im
     private int payCount = 0;
     private String mTradeNo = "";
     private ImageView ivRootBg;
-
+    private int freshCount;
+    private long successTime = 0;
+    // 定义是否再次刷新时间3S
+    private long REFRESH_TIME = 3000;
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, MerchantElecActivity.class);
         context.startActivity(intent);
@@ -597,7 +600,7 @@ public class MerchantElecActivity extends BaseActivity<ElecMerchantPresenter> im
                     if (localData != null && localData.getLoginRes() != null) {
                         LoginRes loginRes = localData.getLoginRes();
                         presenter.getCommercialInfo(loginRes.getMerchant_id());
-                        presenter.getGoods(loginRes.getMerchant_id());
+//                        presenter.getGoods(loginRes.getMerchant_id());
 
                         if (mHandler == null) {
                             mHandler = new Handler();
@@ -605,12 +608,12 @@ public class MerchantElecActivity extends BaseActivity<ElecMerchantPresenter> im
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                presenter.getBanner(loginRes.getMerchant_id());
+//                                presenter.getBanner(loginRes.getMerchant_id());
 
                                 presenter.getMerchantGoodsInfo(loginRes.getMerchant_id());
 
                             }
-                        }, 4000);
+                        }, 3000);
 
                     }
                     break;
@@ -653,9 +656,7 @@ public class MerchantElecActivity extends BaseActivity<ElecMerchantPresenter> im
                     break;
                 case Constant.CLEAR_DAO:
 
-                    com.blankj.utilcode.util.LogUtils.d("执行清除之前缓存: ");
-                    mScaleDaoUtil.clearScaleGoodsDbData();
-                    mScaleDaoUtil.clearScaleKeyDbData();
+                    delCache();
                     break;
                 default:
 
@@ -668,10 +669,30 @@ public class MerchantElecActivity extends BaseActivity<ElecMerchantPresenter> im
         }
     }
 
+    private void delCache() {
+        try {
+            if (ObjectUtils.isNotEmpty(mScaleDaoUtil)) {
+                com.blankj.utilcode.util.LogUtils.d("执行清除之前热键缓存: ");
+                mScaleDaoUtil.clearScaleGoodsDbData();
+                mScaleDaoUtil.clearScaleKeyDbData();
+            }
+            presenter.getGoods(presenter.getMerchantId());
+
+            presenter.getBanner(presenter.getMerchantId());
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void freshData() {
         LoginLocalData localData = CacheUtils.getEntity(Constant.LOGIN_LOCAL, LoginLocalData.class);
         if (localData != null && localData.getLoginRes() != null) {
+            freshCount++;
+            successTime = System.currentTimeMillis();
+
             LoginRes loginRes = localData.getLoginRes();
             //  更新商户信息.
             presenter.getCommercialInfo(loginRes.getMerchant_id());
@@ -693,13 +714,12 @@ public class MerchantElecActivity extends BaseActivity<ElecMerchantPresenter> im
                     presenter.autoUpdate(loginRes.getMarket_id());
                     //   更新 Banner
                     presenter.getBanner(loginRes.getMerchant_id());
-
-
                 }
             }, 4000);
-
         }
+        com.blankj.utilcode.util.LogUtils.d("刷新次数：count " + freshCount);
     }
+
 
 
     private void updateDeviceInfo(LoginRes loginRes) {
@@ -871,17 +891,7 @@ public class MerchantElecActivity extends BaseActivity<ElecMerchantPresenter> im
             ThreadManager.executeSingleTask(new Runnable() {
                 @Override
                 public void run() {
-//                    if (merchantInfo.getHot_key() != null && merchantInfo.getHot_key().size() > 0) {
-//                        List<ScaleHotkeyCommInfo> hot_key = merchantInfo.getHot_key();
-//                        List<ScaleGoods> goods = merchantInfo.getGoods();
-//                        //热键 菜品 写入
-//                        LogUtils.e("菜键");
-//                        dealWithScaleHotkeys(hot_key, goods);
-//                    } else {
-//                        dealWithScaleHotkeys(null, null);
-//
-//                    }
-//                    SystemClock.sleep(400);
+
 
                     if (merchantInfo.getTicket_info() != null && merchantInfo.getTicket_info().size() > 0) {
                         List<ScaleTicket> ticket_info = merchantInfo.getTicket_info();
@@ -948,33 +958,49 @@ public class MerchantElecActivity extends BaseActivity<ElecMerchantPresenter> im
         }
     }
 
+
     public void netWorkSuccess() {
         try {
 
             LogUtils.e(TAG, "internet connected success for icon!");
             ivInfoInternet.setVisibility(View.GONE);
             // 判断是否需要再次刷新
-            if (AppConstants.DefaultSetting.REQUEST_AGAIN_REFRESH) {
-                // 判断是否是从断网到有网的 刷新
-                AppConstants.DefaultSetting.REFRESH_COUNT0 = false;
-                LogUtils.e(TAG, "need to request again refresh!");
-                // 需要进行软件升级
-                CacheUtils.putBoolean(AppConstants.Cache.SOFTWARE_UPDATE, true);
-                // 页面刷新
+//            if (AppConstants.DefaultSetting.REQUEST_AGAIN_REFRESH) {
+//                // 判断是否是从断网到有网的 刷新
+//                AppConstants.DefaultSetting.REFRESH_COUNT0 = false;
+//                LogUtils.e(TAG, "need to request again refresh!");
+//                // 需要进行软件升级
+//                CacheUtils.putBoolean(AppConstants.Cache.SOFTWARE_UPDATE, true);
+//                // 页面刷新
+//                if (freshCount < 2) {
+//                    freshData();
+//                }
+//
+//
+//                AppConstants.DefaultSetting.REQUEST_AGAIN_REFRESH = false;
+//            } else {
+//                LogUtils.e(TAG, "need not to request again refresh!");
+//            } 16:48:15.141
+            freshCount++;
+            long currentTimeMillis = System.currentTimeMillis();
+            // 防止开机自启后，WiFi从无连接 ——  有连接变化 再次刷新。3000
+            boolean needFresh = (currentTimeMillis - successTime) > REFRESH_TIME;
+//         2021-07-27 16:59:10     2021-07-27 16:59:09
+            com.blankj.utilcode.util.LogUtils.d(currentTimeMillis + " - " + successTime + " needFresh: " + needFresh + " freshCount : " + freshCount);
+            if (freshCount <= 2 && needFresh) {
+                com.blankj.utilcode.util.LogUtils.d("网络变化刷新--> data" + freshCount + " 次数");
                 freshData();
-
-
-                AppConstants.DefaultSetting.REQUEST_AGAIN_REFRESH = false;
             } else {
                 LogUtils.e(TAG, "need not to request again refresh!");
-            }
 
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
+
 
 
     @Override
@@ -1648,9 +1674,15 @@ public class MerchantElecActivity extends BaseActivity<ElecMerchantPresenter> im
     protected void onPause() {
         super.onPause();
         // 蓝牙断连
+        freshCount = 0;
         MyBaseApplication.getMyApplication().setBleNormalExit(true);
         BleManager.getInstance().disconnectAllDevice();
-        BleManager.getInstance().destroy();
+//        BleManager.getInstance().destroy();
+        LogUtils.e("onpauase==>", "1111111111111");
+        /***
+         * 小梅鲨 适配遥控器HOME键
+         * */
+        finishActivity();
         LogUtils.e("onpauase==>", "1111111111111");
     }
 
@@ -1661,6 +1693,7 @@ public class MerchantElecActivity extends BaseActivity<ElecMerchantPresenter> im
             rvGoodsPrice.stop();
         }
 
+        freshCount = 0;
 
         stopTimer();
         cancelTask();

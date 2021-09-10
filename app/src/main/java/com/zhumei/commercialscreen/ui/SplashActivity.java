@@ -14,6 +14,8 @@ import androidx.constraintlayout.widget.Guideline;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.blankj.utilcode.util.ObjectUtils;
+import com.blankj.utilcode.util.ThreadUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hikvision.dmb.display.InfoDisplayApi;
 import com.hikvision.dmb.util.InfoUtilApi;
@@ -39,6 +41,8 @@ import com.zhumei.baselib.utils.HttpUtils;
 import com.zhumei.baselib.utils.useing.cache.CacheUtils;
 import com.zhumei.baselib.utils.useing.hardware.HardwareUtils;
 import com.zhumei.baselib.utils.useing.software.LogUtils;
+import com.zhumei.bll_merchant.ui.MerchantElecActivity;
+import com.zhumei.commercialscreen.BuildConfig;
 import com.zhumei.commercialscreen.R;
 import com.zhumei.baselib.config.Constant;
 import com.zhumei.baselib.helper.SplashHelper;
@@ -46,13 +50,15 @@ import com.zhumei.commercialscreen.map.MyLocationListener;
 import com.zhumei.commercialscreen.presenter.splash.SplashPresenterNew;
 import com.zhumei.commercialscreen.presenter.splash.SplashViewNew;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class SplashActivity extends BaseActivity<SplashPresenterNew> implements SplashViewNew {
 
     private static final String TAG = "splashActivity";
 
-    private LocationClient mLocationClient;
-    private MyLocationListener mLocationListener;
+    //    private LocationClient mLocationClient;
+//    private MyLocationListener mLocationListener;
     private int mBoardFlag;
 
     private ActivityUtil activityUtil = new ActivityUtil();
@@ -68,13 +74,15 @@ public class SplashActivity extends BaseActivity<SplashPresenterNew> implements 
     //    private boolean netConnect;
     private Activity mActivity = SplashActivity.this;
     //    private SplashPresenterNew splashPresenterNew;
-    private Handler mHandler;
     private TextView tvSplashTitle;
     private ImageView ivSplashLogo;
     private ProgressBar pbSplashBottom;
     private Guideline bottomLine;
     private ImageView ivInfoInternet;
     private ImageView ivInfoServernet;
+    private String mSavedMarketNum;
+    private String mSavedStallNum;
+    private ThreadUtils.SimpleTask<String> jumpTask;
 
 
     @Override
@@ -114,24 +122,11 @@ public class SplashActivity extends BaseActivity<SplashPresenterNew> implements 
         }
 
 
-        if (mHandler == null) {
-            mHandler = new Handler();
-        }
-
-//        startAllServcie();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                jumpTemplete();
-                ARouter.getInstance().build(RouterManager.MERCHANT)
-                        .withString("msg", "ARouter 传递过来的需要登录的参数 msg")
-                        .navigation(SplashActivity.this, new LoginNavigationCallbackImpl());
-                com.blankj.utilcode.util.LogUtils.d("进入首页。。");
-            }
-        }, 3000);
+        startAllServcie();
 
 
     }
+
 
     private void startAllServcie() {
         startService(new Intent(this, StepService.class));
@@ -183,62 +178,6 @@ public class SplashActivity extends BaseActivity<SplashPresenterNew> implements 
     }
 
 
-    private void jumpTemplete() {
-
-//        MmkvUtils mmkvUtils = MmkvUtils.getInstance();
-        LoginLocalData loginLocalData = CacheUtils.getEntity(Constant.LOGIN_LOCAL, LoginLocalData.class);
-        if (loginLocalData != null) {
-            LoginRes loginRes = loginLocalData.getLoginRes();
-            String template_id = loginRes.getTemplate_id();
-            String merchant_id = loginRes.getMerchant_id();
-            //获取商户 基本信息
-            presenter.getCommercialInfo(merchant_id);
-            // 获取菜价信息
-            presenter.getGoods(merchant_id);
-
-            // 获取缓存 模板类型 跳转不同页面
-            switch (template_id) {
-                case "0":
-                    com.blankj.utilcode.util.LogUtils.d("进入模板0000");
-
-                    // 默认 秤屏联动版本
-//                    activityUtil.toOtherActivity(mActivity, MerchantElecActivity.class);
-                    ARouter.getInstance().build(RouterManager.MERCHANT)
-
-//                            .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .navigation();
-                    // 修改成Banner 页面测试
-//                    MerchantImpl.getInstance().startMerchantActivity(SplashActivity.this);
-
-
-                    break;
-                case "1":
-                    com.blankj.utilcode.util.LogUtils.d("进入模板111111111");
-                    ARouter.getInstance().build(RouterManager.MERCHANT)
-//                            .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .navigation();
-//                    MerchantImpl.getInstance().startMerchantActivity(SplashActivity.this);
-
-                    break;
-
-                case "2":
-                    // Banner
-                    activityUtil.toOtherActivity(mActivity, BannerActivity.class);
-                    break;
-                case "4":
-                    com.blankj.utilcode.util.LogUtils.d("进入模板4");
-                    ARouter.getInstance().build(RouterManager.MERCHANT2)
-//                            .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .navigation();
-                    break;
-            }
-        } else {
-            //请求跳转 Banner
-            activityUtil.toOtherActivity(mActivity, BannerActivity.class);
-        }
-    }
-
-
     @Override
     public void setFullScreen() {
         // 如果海康的jar可以使用
@@ -267,31 +206,12 @@ public class SplashActivity extends BaseActivity<SplashPresenterNew> implements 
      */
     private void initBaiduMap() {
         try {
-//            // 设置定位
-//            mLocationClient = new LocationClient(this);
-//            if (!mLocationClient.isStarted()) {
-//                mLocationClient.start();
-//            }
-//            mLocationListener = new MyLocationListener();
-//            // 注册定位监听
-//            mLocationClient.registerLocationListener(mLocationListener);
-//            LocationClientOption option = new LocationClientOption();
-//            // 设置坐标类型
-//            option.setCoorType(AppConstants.CommonStr.COOR_TYPE);
-//            // 设置打开GPS
-//            option.setOpenGps(true);
-//            // 设置需要返回当前位置
-//            option.setIsNeedAddress(true);
-//            mLocationClient.setLocOption(option);
 
 
             String longitude = "120.19";
             String latitude = "30.26";
 //      杭州市经纬度  经度：120.19 ， 纬度：30.26
-//            if (bdLocation != null) {
-//                longitude = String.valueOf(bdLocation.getLongitude());
-//                latitude = String.valueOf(bdLocation.getLatitude());
-//            }
+
             CacheUtils.putString(AppConstants.Cache.LONGITUDE, longitude);
             CacheUtils.putString(AppConstants.Cache.LATITUDE, latitude);
         } catch (Exception e) {
@@ -323,6 +243,13 @@ public class SplashActivity extends BaseActivity<SplashPresenterNew> implements 
     @Override
     protected void onResume() {
         super.onResume();
+
+
+        mSavedMarketNum = CacheUtils.getString(Constant.LAST_MARKET_CODE, "");
+        mSavedStallNum = CacheUtils.getString(Constant.LAST_STALL_NAME);
+
+        com.blankj.utilcode.util.LogUtils.d(TAG, mSavedMarketNum + " ---> " + mSavedStallNum);
+        presenter.login(mSavedMarketNum, mSavedStallNum);
     }
 
     @Override
@@ -331,11 +258,7 @@ public class SplashActivity extends BaseActivity<SplashPresenterNew> implements 
             // 将要退出的Activity加到集合
 //            MyApplicati.addActivity(SplashActivity.this);
             // 在页面关闭时将定位关闭掉
-            if (mLocationClient != null && mLocationClient.isStarted()) {
-                mLocationClient.unRegisterLocationListener(mLocationListener);
-                mLocationClient.stop();
-                mLocationClient = null;
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -436,6 +359,122 @@ public class SplashActivity extends BaseActivity<SplashPresenterNew> implements 
     }
 
     @Override
+    public void loginSuccess(BaseResponse<LoginRes> response, String stall_name) {
+        if (response == null) {
+            return;
+        }
+        if (response.getCode() == 0) {
+            ToastUtils.showShort(response.getMsg());
+            return;
+        }
+
+        LoginRes loginRes = response.getObj();
+
+        if (loginRes != null) {
+            if (BuildConfig.DEBUG) {
+                com.blankj.utilcode.util.LogUtils.e("loginSuccess", loginRes.toString());
+            }
+            // 登录 成功根据后端返回 跳转.
+            LoginLocalData loginLocalData = new LoginLocalData();
+            loginLocalData.setLoginRes(loginRes);
+            CacheUtils.putEntity(Constant.LOGIN_LOCAL, loginLocalData);
+            //保存 登录正确的摊位号
+            CacheUtils.putString(Constant.LAST_STALL_NAME, stall_name);
+
+//            /**
+//             *  上传设备信息
+//             * */
+            updateDeviceInfo(loginRes);
+            presenter.autoUpdate(loginRes.getMarket_id());
+
+
+            jumpTask = new ThreadUtils.SimpleTask<String>() {
+                @Override
+                public String doInBackground() throws Throwable {
+                    return "jump";
+                }
+
+                @Override
+                public void onSuccess(String result) {
+                    loginTemplete(loginRes);
+                    com.blankj.utilcode.util.LogUtils.d(TAG + result);
+                }
+            };
+
+            ThreadUtils.executeByIoWithDelay(jumpTask, 2, TimeUnit.SECONDS);
+
+        }
+    }
+
+
+    /***
+     *  登录 不同模板
+     * */
+    private void loginTemplete(LoginRes loginRes) {
+        com.blankj.utilcode.util.LogUtils.d("tempId:" + loginRes.getTemplate_id());
+        String template_id = loginRes.getTemplate_id();
+        String merchant_id = loginRes.getMerchant_id();
+        //获取商户 基本信息
+        presenter.getCommercialInfo(merchant_id);
+        // 获取菜价信息
+        presenter.getGoods(merchant_id);
+
+        // 获取缓存 模板类型 跳转不同页面
+        switch (template_id) {
+            case "0":
+                com.blankj.utilcode.util.LogUtils.d("进入模板0000");
+
+                // 默认 秤屏联动版本
+//                    activityUtil.toOtherActivity(mActivity, MerchantElecActivity.class);
+                ARouter.getInstance().build(RouterManager.MERCHANT)
+
+//                            .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .navigation();
+                // 修改成Banner 页面测试
+//                    MerchantImpl.getInstance().startMerchantActivity(SplashActivity.this);
+
+
+                break;
+            case "1":
+                com.blankj.utilcode.util.LogUtils.d("进入模板111111111");
+                ARouter.getInstance().build(RouterManager.MERCHANT)
+//                            .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .navigation();
+//                    MerchantImpl.getInstance().startMerchantActivity(SplashActivity.this);
+
+                break;
+
+            case "2":
+                // Banner
+                activityUtil.toOtherActivity(mActivity, BannerActivity.class);
+                break;
+            case "4":
+                com.blankj.utilcode.util.LogUtils.d("进入模板4");
+                ARouter.getInstance().build(RouterManager.MERCHANT2)
+//                            .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .navigation();
+                break;
+        }
+    }
+
+    @Override
+    public void loginError(String msg) {
+        com.blankj.utilcode.util.LogUtils.d("loginError", msg);
+        // 登录 失败根据缓存跳转
+        LoginLocalData entity = CacheUtils.getEntity(Constant.LOGIN_LOCAL, LoginLocalData.class);
+        if (isNotLogin(entity)) {
+            activityUtil.toOtherActivity(SplashActivity.this, BannerActivity.class);
+        } else {
+            LoginRes loginRes = entity.getLoginRes();
+            loginTemplete(loginRes);
+        }
+    }
+
+    private boolean isNotLogin(LoginLocalData entity) {
+        return entity == null || entity.getLoginRes() == null;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
     }
@@ -443,8 +482,10 @@ public class SplashActivity extends BaseActivity<SplashPresenterNew> implements 
     @Override
     protected void onPause() {
         super.onPause();
-        if (mHandler != null) {
-            mHandler.removeCallbacksAndMessages(null);
+
+        if (ObjectUtils.isNotEmpty(jumpTask)) {
+            ThreadUtils.cancel(jumpTask);
+            jumpTask = null;
         }
     }
 
